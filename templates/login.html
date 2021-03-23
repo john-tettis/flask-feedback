@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Register User{% endblock %}
+
+{% block content %}
+<div class="container m-4">
+    <form action="" method = 'POST'>
+    <h1 class="display-3 text-center">Login</h1>
+    <p class="lead">Put your information in below to login don't have an account? <a href="/register" class="">Register Here</a></p>
+    {{ form.csrf_token }}
+    {% for field in form if field.name != 'first_name' and field.name != 'last_name' and field.widget.input_type != 'hidden'%}
+    {{field.label}}
+    {{field(class_='form-control')}}
+        {% for error in form.errors %}
+        <span class="text-danger">{{error}}</span>
+        {% endfor %}
+    {% endfor %}
+    <button class="btn btn-primary mt-2 btn-block">Login</button>
+    </div>
+</form>
+
+{% endblock %}

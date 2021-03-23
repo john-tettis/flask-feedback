@@ -1,0 +1,72 @@
+{% extends 'base.html'%}
+
+{% block title%}{{user.full_name}}{% endblock %}
+
+{% block content%}
+<div class="container m-5 p-4 justify-content-center border rounded bg-light">
+    <div class="container  justify-content-center">
+        <h1 class="display-5 mb-4 text-center">{{user.username.capitalize()}}'s Information</h1>
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="row">
+                    <div class="col text-center">
+                    First name:
+                    </div>
+                    <div class="col text-center">
+                    {{user.first_name}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                    Last name:
+                    </div>
+                    <div class="col text-center">
+                    {{user.last_name}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                    Username:
+                    </div>
+                    <div class="col text-center">
+                    {{user.username}}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col text-center">
+                    Email:
+                    </div>
+                    <div class="col text-center">
+                    {{user.email}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%with feedback = user.feedback %}
+    {% if feedback %}
+    <div class="container mt-4">
+        <h1 class="display-5 text-center">{{user.username.capitalize()}}'s feedback</h1>
+        
+        {% for feed in feedback%}
+        <div class="card"> 
+            <div class="card-body">
+                <h5 class="card-title">{{feed.title}}</h5>
+                <p class="card-text">{{feed.content}}</p>
+            </div>
+            <form action="/feedback/{{feed.id}}/delete" method='POST'>
+            <button class="btn btn-danger">Delete Feedback</button>
+            <a href="/feedback/{{feed.id}}/edit" class="btn btn-warning">Edit feedback</a>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+</div>
+
+    
+{% endblock %}
