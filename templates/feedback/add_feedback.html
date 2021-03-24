@@ -1,0 +1,17 @@
+{% extends 'base.html'%}
+{% block title%}Add feedback{% endblock %}
+
+{% block content%}
+<div class="container m-4">
+    <form action="" method = 'POST'>
+        <h1 class="display-3 text-center">{{title}}</h1>
+        {{ form.csrf_token }}
+        <p class="lead">Tell us what you think!</p>
+        {% for field in form if field.widget.input_type != 'hidden'%}
+        {{field.label}}
+        {{field(class_='form-control')}}
+        {% endfor %}
+        <button class="btn btn-primary mt-2 btn-block">{{btn}}</button>
+    </form>
+</div>
+{% endblock %}

@@ -40,6 +40,8 @@ class User(db.Model):
             return f'{self.first_name} {self.last_name}'
     full_name = property(_full_name)
 
+    feedback = db.relationship('Feedback', cascade='all, delete')
+
 
 class Feedback(db.Model):
     __tablename__ = 'feedback'
@@ -50,6 +52,6 @@ class Feedback(db.Model):
 
     content = db.Column(db.Text, nullable = False)
 
-    username = db.Column(db.String, db.ForeignKey('users.username'), on_delete = 'cascade')
+    username = db.Column(db.String, db.ForeignKey('users.username', ondelete = 'cascade'))
 
-    user = db.relationship('User', backref = 'feedback')
+    user = db.relationship('User', cascade='all, delete')

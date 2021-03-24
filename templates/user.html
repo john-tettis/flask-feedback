@@ -3,7 +3,7 @@
 {% block title%}{{user.full_name}}{% endblock %}
 
 {% block content%}
-<div class="container m-5 p-4 justify-content-center border rounded bg-light">
+<div class="container mx-auto my-5 p-4 justify-content-center border rounded bg-light">
     <div class="container  justify-content-center">
         <h1 class="display-5 mb-4 text-center">{{user.username.capitalize()}}'s Information</h1>
         <div class="row justify-content-center">
@@ -43,6 +43,19 @@
                     {{user.email}}
                     </div>
                 </div>
+                <div class="row justify-content-around mt-4">
+                    <div class="col-3 text-center">
+                        <a href="/users/{{user.username}}/feedback/add" class="btn btn-success mx-auto my-2">New Feedback</a>
+                    </div>
+                    <div class="col-3 text-center">
+                        <a href="/logout" class="btn btn-primary mx-auto my-2">Logout</a>
+                    </div>
+                    <div class="col-3 text-center">
+                        <form action="/users/{{user.username}}/delete" method="POST">
+                            <button class="btn btn-danger mx-auto my-2">Delete User</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -54,13 +67,20 @@
         {% for feed in feedback%}
         <div class="card"> 
             <div class="card-body">
-                <h5 class="card-title">{{feed.title}}</h5>
-                <p class="card-text">{{feed.content}}</p>
+                <div class="row">
+                    <div class="col-9">
+                        <h5 class="card-title">{{feed.title}}</h5>
+                        <p class="card-text">{{feed.content}}</p>
+                    </div>
+                    <div class="col-3 d-flex flex-column">
+                        <form action="/feedback/{{feed.id}}/delete" method='POST' class="mx-4 my-1">
+                            <button class="btn btn-danger btn-block ">Delete Feedback</button>
+                        </form>
+                        <a href="/feedback/{{feed.id}}/edit" class="btn btn-warning push-right mx-4 my-1">Edit feedback</a>
+                    </div>
+                </div>
             </div>
-            <form action="/feedback/{{feed.id}}/delete" method='POST'>
-            <button class="btn btn-danger">Delete Feedback</button>
-            <a href="/feedback/{{feed.id}}/edit" class="btn btn-warning">Edit feedback</a>
-            </form>
+            
         </div>
         {% endfor %}
     </div>
